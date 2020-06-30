@@ -5,18 +5,30 @@ import { Context } from "../store/appContext";
 
 export const Single = props => {
 	const { store, actions } = useContext(Context);
+	useEffect(
+		() => {
+			actions.getPerson(props.match.params.theid);
+		},
+		[props.match.params.theid]
+	);
+
 	return (
-		<div className="jumbotron">
-			<h1 className="display-4">This will show the demo element: {store.demo[props.match.params.theid].title}</h1>
-
-			<hr className="my-4" />
-
-			<Link to="/">
-				<span className="btn btn-primary btn-lg" href="#" role="button">
-					Back home
-				</span>
-			</Link>
-		</div>
+		<>
+			{"name" in store.single &&
+				props.match.params.theid == store.single.url.match(/[/][0-9]+[/]/)[0].replace(/[/]/g, "") && (
+					<div className="jumbotron">
+						<div className="d-flex">
+							<img className="card-img-top" src="..." alt="Card image cap" />
+						</div>
+						<div className="d-flex">
+							<h1 className="display-4">{store.single.name}</h1>
+							<p className="lead">{props.match.params.thetype}</p>
+						</div>
+						<hr className="my-4" />
+						<p>{"This is the card info"}</p>
+					</div>
+				)}
+		</>
 	);
 };
 

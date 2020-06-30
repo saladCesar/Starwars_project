@@ -1,23 +1,75 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			people: [],
+			single: {},
+			planets: [],
+			vehicles: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			getPerson: index => {
+				console.log("Hello Darth Vader");
+				fetch(`https://swapi.dev/api/people/${index}/`)
+					.then(function(response) {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(resjson => {
+						setStore({
+							single: resjson
+						});
+					});
+			},
+			getPeople: () => {
+				fetch("https://swapi.dev/api/people/", {
+					method: "GET"
+				})
+					.then(function(response) {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(resjson => {
+						setStore({
+							people: resjson.results
+						});
+					});
+			},
+			getPlanets: () => {
+				fetch("https://swapi.dev/api/planets/", {
+					method: "GET"
+				})
+					.then(function(response) {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(resjson => {
+						setStore({
+							planets: resjson.results
+						});
+					});
+			},
+			getVehicles: () => {
+				fetch("https://swapi.dev/api/starships/", {
+					method: "GET"
+				})
+					.then(function(response) {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(resjson => {
+						setStore({
+							starships: resjson.results
+						});
+					});
 			},
 			loadSomeData: () => {
 				/**
