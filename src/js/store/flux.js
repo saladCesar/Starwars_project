@@ -9,8 +9,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			// Use getActions to call a function within a fuction
 			getPerson: index => {
-				console.log("Hello Darth Vader");
+				console.log(`https://swapi.dev/api/people/${index}/`);
 				fetch(`https://swapi.dev/api/people/${index}/`)
+					.then(function(response) {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(resjson => {
+						setStore({
+							single: resjson
+						});
+					});
+			},
+			getVehicle: index => {
+				console.log(`https://swapi.dev/api/starships/${index}/`);
+				fetch(`https://swapi.dev/api/starships/${index}/`)
+					.then(function(response) {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(resjson => {
+						setStore({
+							single: resjson
+						});
+					});
+			},
+			getPlanet: index => {
+				console.log(`https://swapi.dev/api/planets/${index}/`);
+				fetch(`https://swapi.dev/api/planets/${index}/`)
 					.then(function(response) {
 						if (!response.ok) {
 							throw Error(response.statusText);
@@ -67,7 +97,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.then(resjson => {
 						setStore({
-							starships: resjson.results
+							vehicles: resjson.results
 						});
 					});
 			},

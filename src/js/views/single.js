@@ -7,7 +7,13 @@ export const Single = props => {
 	const { store, actions } = useContext(Context);
 	useEffect(
 		() => {
-			actions.getPerson(props.match.params.theid);
+			if (props.match.params.thetype == "people") {
+				actions.getPerson(props.match.params.theid);
+			} else if (props.match.params.thetype == "starships") {
+				actions.getVehicle(props.match.params.theid);
+			} else {
+				actions.getPlanet(props.match.params.theid);
+			}
 		},
 		[props.match.params.theid]
 	);

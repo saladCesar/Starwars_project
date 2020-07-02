@@ -12,7 +12,6 @@ export const Home = () => {
 			<ItemHolder title={"Characters"} cardsData={store.people} />
 			<ItemHolder title={"Planet's"} cardsData={store.planets} />
 			<ItemHolder title={"Vehicle's"} cardsData={store.vehicles} />
-			<Single />
 		</div>
 	);
 };
